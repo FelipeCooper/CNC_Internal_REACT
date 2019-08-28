@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import '../style/style.css';
 import Header from './Header';
 import Selecter from './Selecter'
-const Setores = require('../../services/Setores');
-const Motivos = require('../../services/Motivos');
-
+const Getter = require('../../services/Getter');
+const Registrar = require('../../services/Registrar');
 export default class Registro extends Component {
     constructor(props) {
         super(props);
@@ -13,37 +12,73 @@ export default class Registro extends Component {
             motivos: [],
             subMotivos: []
         }
-        this.motivos = this.motivos.bind(this)
+        this.motivos = this.motivos.bind(this);
+        this.submotivos = this.submotivos.bind(this);
+        this.registrar = this.registrar.bind(this)
     }
     async componentDidMount() {
-        this.setState({ setores: await Setores() })
+        this.setState({ setores: await Getter.setores() })
+        this.setState({ responsavel: 'Marcos' })
+        this.setState({ responsavel_id: 1 })
+        this.setState({ setorResponsavel: 3 })
+
     }
-    async motivos(ev){
-        console.log(ev.target.value)
-        this.setState({motivos: await Motivos('motivos', ev.target.value)});
+    async motivos(ev) {
+        let setorId = ev.target.value
+        this.setState({ setor_id: setorId })
+        this.setState({ motivos: await Getter.motivos(setorId) });
+        if (setorId == 16) {
+            this.setState({ franquias: await Getter.franquias() })
+        } else {
+            this.setState({ franquia_id: null, franquias: undefined });
+        }
+    }
+    async submotivos(ev) {
+        this.setState({ motivo_id: ev.target.value })
+        this.setState({ subMotivos: await Getter.subMotivos(ev.target.value) });
+    }
+    handleSubmotivoChange(ev) {
+        this.setState({ submotivo_id: ev.target.value })
+    }
+    handleObsChange(ev) {
+        this.setState({ obs: ev.target.value })
+    }
+    handleCondominioChange(ev) {
+        this.setState({ condominio: ev.target.value })
+    }
+    handleFranquiaChange(ev) {
+        this.setState({ franquia_id: ev.target.value })
+    }
+    async registrar(ev) {
+        let st = this.state;
+        let result = await Registrar(st.setor_id, st.motivo_id, st.submotivo_id, st.condominio, st.responsavel, st.responsavel_id, st.obs, st.setorResponsavel, st.franquia_id)
+        console.log(result)
+    }
+    franquia(franquias) {
+        if (typeof franquias != 'undefined') {
+            return (
+                <Selecter dados={this.state.franquias} functionName={(ev) => { ev.persist(); this.handleFranquiaChange(ev) }} />
+            )
+        } else {
+            return null;
+        }
     }
     render() {
         return (
-
-
             <div className="container active" id="cnt-cadastro">
-                <Header titulo="Cadastrar Não Conformidade"/>
+                <Header titulo="Cadastrar Não Conformidade" />
                 <div className="box">
-                    <form id='formRegistro'>
-                        <Selecter dados={this.state.setores} functionName={this.motivos}/>
-                        <Selecter dados={this.state.motivos} functionName={this.motivos}/>
-                        <input className='inputter' type='text' id="condominio" name='condominio' placeholder='Condominio' />
-                        <textarea name="obs" id='obs' className="obs" placeholder="Observações"></textarea>
-                        <input type='submit' value='Registrar' />
+                    <form>
+                        <input className='inputter' type='text' onChange={(ev => { ev.persist(); this.handleCondominioChange(ev) })} placeholder='Condominio' />
+                        <Selecter dados={this.state.setores} functionName={this.motivos} />
+                        {this.franquia(this.state.franquias)}
+                        <Selecter dados={this.state.motivos} functionName={(ev) => { ev.persist(); this.submotivos(ev) }} />
+                        <Selecter dados={this.state.subMotivos} functionName={(ev) => { ev.persist(); this.handleSubmotivoChange(ev) }} />
+                        <textarea className="obs" onChange={(ev => { ev.persist(); this.handleObsChange(ev) })} placeholder="Observações"></textarea>
+                        <input type='submit' value='Registrar' onClick={(ev) => { ev.persist(); this.registrar(ev) }} />
                     </form>
                 </div>
             </div>
-
-
-
-
-
-
         )
     }
 }

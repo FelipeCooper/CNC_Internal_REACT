@@ -11,7 +11,7 @@ export default class Mostrar extends Component {
     }
   }
   async componentDidMount() {
-    this.setState({ dados: await CNC({ usuario: 'usuario', setor_id: 1 }) })
+    this.setState({ dados: await CNC({ usuario: 'admin', setor_id: 1 }) })
     this.setState({titulo: 'CADASTROS DO SETOR: '+ this.state.dados[0].setorResponsavel})
     console.log(this.state.dados);
   }
