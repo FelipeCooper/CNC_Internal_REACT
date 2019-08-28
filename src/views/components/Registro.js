@@ -4,6 +4,8 @@ import Header from './Header';
 import Selecter from './Selecter'
 const Getter = require('../../services/Getter');
 const Registrar = require('../../services/Registrar');
+//const Autentication = require('../../services/Autentication');
+
 export default class Registro extends Component {
     constructor(props) {
         super(props);
@@ -16,12 +18,12 @@ export default class Registro extends Component {
         this.submotivos = this.submotivos.bind(this);
         this.registrar = this.registrar.bind(this)
     }
-    async componentDidMount() {
+    async componentDidMount() { 
+        let autentication = await Getter.autentication();
         this.setState({ setores: await Getter.setores() })
-        this.setState({ responsavel: 'Marcos' })
-        this.setState({ responsavel_id: 1 })
-        this.setState({ setorResponsavel: 3 })
-
+        this.setState({ responsavel: autentication.nome })
+        this.setState({ responsavel_id: autentication.id })
+        this.setState({ setorResponsavel: autentication.setor_id })
     }
     async motivos(ev) {
         let setorId = ev.target.value
