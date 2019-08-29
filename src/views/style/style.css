@@ -1,6 +1,5 @@
 @import url("//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css");
-.menu,
-.menu-bar {
+.menu, .menu-bar {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -63,9 +62,7 @@
     content: "\f039";
 }
 
-.menu-bar li a:hover,
-.menu li a:hover,
-.menu li:first-child a {
+.menu-bar li a:hover, .menu li a:hover, .menu li:first-child a {
     background: #005f37;
     color: #fff;
 }
@@ -141,8 +138,7 @@
 }
 
 @media screen and (max-height: 34em) {
-    .menu li,
-    .menu-bar {
+    .menu li, .menu-bar {
         font-size: 70%;
     }
 }
@@ -206,7 +202,6 @@ td {
     border-bottom: solid 1px rgba(0, 0, 0, 1)
 }
 
-
 /* demo styles */
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
@@ -220,7 +215,6 @@ section {
     margin-left: 90px;
     margin-right: 10px;
 }
-
 
 /* follow me template */
 
@@ -251,7 +245,6 @@ section {
     text-decoration: underline;
 }
 
-
 /* for custom scrollbar for webkit browser*/
 
 ::-webkit-scrollbar {
@@ -265,7 +258,6 @@ section {
 ::-webkit-scrollbar-thumb {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.7);
 }
-
 
 /*FIM DO INDEX.HTML ------------------------------------------------------------------*/
 
@@ -298,6 +290,7 @@ section {
 }
 
 body {
+    background: url("img/fundo.png") no-repeat;
     margin: 0px;
 }
 
@@ -359,9 +352,7 @@ body {
     top: 1px;
 }
 
-
 /* This button was generated using CSSButtonGenerator.com */
-
 
 /* DATA TIP PLUGIN ----------------------------------------------------------------------------- */
 
@@ -407,11 +398,9 @@ body {
     word-wrap: normal;
 }
 
-[data-tip]:hover:before,
-[data-tip]:hover:after {
+[data-tip]:hover:before, [data-tip]:hover:after {
     display: block;
 }
-
 
 /* ICONES DENTRO DO INPUT ----------------------------------------*/
 
@@ -422,7 +411,7 @@ body {
 }
 
 .btn-delete {
-    background: url("") no-repeat center center;
+    background: url("img/delete.png") no-repeat center center;
     background-size: 25px;
     width: 17px;
     height: 28px;
@@ -432,7 +421,7 @@ body {
 }
 
 .btn-add {
-    background: url("") no-repeat center center;
+    background: url("img/add.png") no-repeat center center;
     background-size: 25px;
     width: 17px;
     height: 28px;
@@ -442,7 +431,7 @@ body {
 }
 
 .btn-edit {
-    background: url("") no-repeat center center;
+    background: url("img/editar.png") no-repeat center center;
     background-size: 15px;
     width: 20px;
     height: 30px;
@@ -466,7 +455,6 @@ body {
     color: #000;
     margin: 2px 0
 }
-
 
 #submotivosLink_chosen>a {
     border: 2px solid #005f37;
@@ -499,14 +487,6 @@ body {
     color: #000;
     margin: 2px 0
 }
-#franquiaSlt_chosen>a {
-    border: 2px solid #005f37;
-    border-radius: 2px;
-    height: 30px;
-    color: #000;
-    margin: 2px 0
-}
-
 
 /* ANIMAÇÃO XXXXXXXXXX*/
 
@@ -514,17 +494,13 @@ body {
     position: absolute;
     transition: opacity 1s ease-out;
     opacity: 1;
-
     width: 100%;
     height: 100%;
     visibility: visible;
 }
 
-.sectioncnc.active {
-    opacity: 1;
-    width: 100%;
-    height: 100%;
-    visibility: visible;
+.acesso_negado {
+    background: url("img/acessonegado.jpeg") no-repeat;
+    background-size: cover;
+    height: 100vh !important;
 }
-
-

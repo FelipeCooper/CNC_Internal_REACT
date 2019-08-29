@@ -1,5 +1,5 @@
 const Registrar = async function(setorId, motivoId, submotivoId, condominio, responsavel, responsavelId, obs, setorResponsavel,franquiaId){
-    let request = await fetch('http://localhost:3001/api/registrarNC', {
+    let request = await fetch('http://localhost:3001/api/cnc/registrar', {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -19,4 +19,4 @@ const Registrar = async function(setorId, motivoId, submotivoId, condominio, res
     })
     return await request.json();
 }
-module.exports = Registrar;
+export default Registrar;
