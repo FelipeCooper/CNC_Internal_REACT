@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Registro from './views/components/Registro';
-import Graphs from './views/components/Graphs';
+import Registro from './views/pages/Registro';
+import Graphs from './views/pages/Grafico';
 import AcessoNegado from './views/components/AcessoNegado';
-import Mostrar from './views/components/Mostrar';
+import Mostrar from './views/pages/Mostrar';
 import Admin from './views/components/Admin';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
@@ -18,8 +18,6 @@ ReactDOM.render(
             <Route path="/Admin" component={Admin} />
         </Switch>
     </ BrowserRouter>
-
-
     , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

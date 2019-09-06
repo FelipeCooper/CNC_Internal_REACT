@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
 import '../style/style.css';
-import Header from './Header';
+import Header from '../components/Header';
 import CNC from '../../services/CNC';
 import Getter from '../../services/Getter';
 export default class Mostrar extends Component {

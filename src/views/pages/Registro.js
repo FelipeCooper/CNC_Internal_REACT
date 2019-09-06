@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
 import '../style/style.css';
-import Header from './Header';
-import Selecter from './Selecter'
+import Header from '../components/Header';
+import Selecter from '../components/Selecter'
 import Getter from '../../services/Getter';
 import Registrar from '../../services/Registrar';
 

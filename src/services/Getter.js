@@ -20,7 +20,7 @@ const Getter = {
     async autentication() {
         let email = await fetch('./O365.php');
         let verf = await email.text();
-        let request = await requester('api/setorMembro/verifica', { email: 'estagiario.consultoria21@grupoembracon.com.br' });
+        let request = await requester('api/setorMembro/verifica', { email: 'estagiario.consultoria1@grupoembracon.com.br' });
         if (typeof request.resultado != 'undefined') {
             return await requester('api/admin/verifica', { email: 'estagiario.consultoria1@grupoembracon.com.br' });
         } else {
