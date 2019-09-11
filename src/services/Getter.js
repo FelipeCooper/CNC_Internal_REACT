@@ -1,3 +1,5 @@
+import Admin from "../views/pages/Admin";
+
 const dominio = 'http://localhost:3001/';
 const Getter = {
     async motivos(setorId) {

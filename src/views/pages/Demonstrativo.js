@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import CanvasJSReact from '../../plugin/canvas/canvasjs.react';
 import CNC from '../../services/CNC';
 import Getter from '../../services/Getter';
+import Grafico from "../components/Grafico";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 export default class Graphs extends Component {
@@ -41,26 +42,9 @@ export default class Graphs extends Component {
     return data;
   }
   render() {
-    const dados = this.state.dados
-    const options = {
-      animationEnabled: true,
-      exportEnabled: true,
-      height: 600,
-      theme: "light1", // "light1", "dark1", "dark2"
-      title: {
-        text: "Não Conformidades Mensal"
-      },
-      data: [{
-        type: "pie",
-        indexLabel: "{label}: {y}",
-        startAngle: -90,
-        dataPoints: dados
-      }]
-    }
-
     return (
       <div>
-        <CanvasJSChart options={options} />
+        <Grafico titulo='Nao Conformidade Mensal' height='600' dados={this.state.dados} />
       </div>
     );
   }

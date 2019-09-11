@@ -14,9 +14,8 @@ export default class Mostrar extends Component {
     this.setMonth = this.setMonth.bind(this);
   }
   async componentDidMount() {
-    let autentication = await Getter.autentication();
-    this.setState({ estado: autentication.resultado, setor_id: autentication.setor_id });
-    this.setState({ dados: await CNC(this.state.setor_id, this.state.data_inicio, this.state.data_fim) });
+    this.setState({user: await Getter.autentication()});
+    this.setState({ dados: await CNC(this.state.user.setor_id, this.state.data_inicio, this.state.data_fim) });
     this.setState({ titulo: 'CADASTROS DO SETOR' });
     console.log(this.state)
   }
@@ -24,7 +23,7 @@ export default class Mostrar extends Component {
     let mes = ev.target.value.split('-');
     this.setState({ data_inicio: await new Date(mes[0], mes[1] - 1, 1).toISOString().slice(0, 10).replace(/-/g, '/') });
     this.setState({ data_fim: await new Date(mes[0], mes[1], 0).toISOString().slice(0, 10).replace(/-/g, '/') });
-    this.setState({ dados: await CNC(this.state.setor_id, this.state.data_inicio, this.state.data_fim) });
+    this.setState({ dados: await CNC(this.state.user.setor_id, this.state.data_inicio, this.state.data_fim) });
   }
   render() {
     if (this.state.estado == 'NaoAutorizado') {
