@@ -28,6 +28,9 @@ const Getter = {
         } else {
             return request;
         }
+    },
+    async membros(setor_id){
+        return await requester('api/setorMembro/mostrarBySetor',{setor_id: setor_id});
     }
 }
 async function requester(link, body) {
