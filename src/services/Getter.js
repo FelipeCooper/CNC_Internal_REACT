@@ -31,6 +31,12 @@ const Getter = {
     },
     async membros(setor_id){
         return await requester('api/setorMembro/mostrarBySetor',{setor_id: setor_id});
+    },
+    async cadastrarSetorMembro(setorMembro){
+        return await requester('api/setorMembro/registrar',setorMembro);
+    },
+    async deleteSetorMembro(setorMembro){
+        return await requester('api/setorMembro/deletar',setorMembro);
     }
 }
 async function requester(link, body) {
