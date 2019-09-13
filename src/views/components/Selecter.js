@@ -8,6 +8,9 @@ export default class Selecter extends Component {
                     {this.props.dados.map(dado => {
                         return <option key={dado.id} value={dado.id}> {dado.titulo}</option>
                     })}
+                    {
+                        this.props.add === true ? <option value='add'>ADICIONAR NOVO</option> : null
+                    }
                 </select>
             </div>
         )

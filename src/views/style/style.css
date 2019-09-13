@@ -278,9 +278,13 @@ section {
     justify-content: center;
     align-items: center;
 }
-
+td{
+    border: 0px;
+    padding: 0px;
+}
 .box {
     padding: 32px 45px 35px 45px;
+    display:block;
     width: 250px;
     height: 400px;
     background: #fff;
@@ -295,7 +299,7 @@ body {
 }
 
 .inputter {
-    width: 100%;
+    width: 91%;
     padding: 6px 10px;
     margin: 2px 0;
     box-sizing: border-box;
@@ -422,7 +426,7 @@ body {
 
 .btn-add {
     background: url("img/add.png") no-repeat center center;
-    background-size: 25px;
+    background-size: 15px;
     width: 17px;
     height: 28px;
     display: inline-block;

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Selecter from '../components/Selecter';
 import SelecterUser from '../components/SelecterUser';
 import Getter from '../../services/Getter';
-import { async } from 'q';
 
 export default function SetorMembro() {
     const [setores, setSetores] = useState([]);
@@ -31,21 +30,33 @@ export default function SetorMembro() {
         window.location.reload();
     }
     return (
-        <div className='box' style={{ margin: '10px', width: '200px', height: '400px' }}>
+        <div className='box' style={{ margin: '10px', width: '250px', height: '200px' }}>
             <center>
                 <h2>Setor Membros</h2>
-                <Selecter dados={setores} functionName={(ev) => { handleChangeSetores(ev.target) }} />
-                <SelecterUser dados={users} functionName={(ev) => { handleChangeUsers(ev.target) }} />
-                {
-                    cadastro.add == false ?
-                        <button onClick={(ev) => { handleDeleteUser(ev) }}>Deletar Usuario</button> :
-                        <form onSubmit={(ev) => { handleSubmitForm(ev) }}>
-                            <input className='inputter' onChange={(ev) => { setCadastro({ ...cadastro, nome: ev.target.value }) }} placeholder="Nome" required />
-                            <input className='inputter' onChange={(ev) => { setCadastro({ ...cadastro, email: ev.target.value }) }} placeholder="Email" required />
-                            <button>Cadastrar</button>
-                        </form>
-                }
+                <table>
+                    <tr>
+                        <td style={{ width: '88%' }}><Selecter dados={setores} functionName={(ev) => { handleChangeSetores(ev.target) }} /></td>
+                    </tr>
+                    <tr>
+                        <td style={{ width: '88%' }}><SelecterUser dados={users} functionName={(ev) => { handleChangeUsers(ev.target) }} /></td>
+                        <td><a className='btn-delete' href="#" onClick={(ev) => { handleDeleteUser(ev) }}></a></td>
+                    </tr>
+                    {
+                        cadastro.add === false ? null :
+                            <tbody>
+                                <tr>
+                                    <td style={{ width: '88%' }}><input className='inputter' onChange={(ev) => { setCadastro({ ...cadastro, nome: ev.target.value }) }} placeholder="Nome" required /></td>
+                                </tr>
+                                <tr>
+                                    <td style={{ width: '88%' }}><input className='inputter' onChange={(ev) => { setCadastro({ ...cadastro, email: ev.target.value }) }} placeholder="Email" required /></td>
+                                </tr>
+                                <tr>
+                                    <td style={{ width: '88%' }}><button onClick={(ev) => { handleSubmitForm(ev) }} >Cadastrar</button></td>
+                                </tr>
+                            </tbody>
+                    }
+                </table>
             </center>
-        </div>
+        </div >
     )
 }
