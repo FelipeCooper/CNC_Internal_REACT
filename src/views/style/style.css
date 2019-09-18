@@ -278,10 +278,6 @@ section {
     justify-content: center;
     align-items: center;
 }
-td{
-    border: 0px;
-    padding: 0px;
-}
 .box {
     padding: 32px 45px 35px 45px;
     display:block;
@@ -299,7 +295,7 @@ body {
 }
 
 .inputter {
-    width: 91%;
+    width: 100%;
     padding: 6px 10px;
     margin: 2px 0;
     box-sizing: border-box;
@@ -317,7 +313,10 @@ body {
     border-radius: 2px;
     color: #000;
 }
-
+.noBorder >tr > td {
+    border: none;
+    padding:0
+}
 .btn-default {
     -moz-box-shadow: inset 0px 0px 0px 0px #caefab;
     -webkit-box-shadow: inset 0px 0px 0px 0px #caefab;

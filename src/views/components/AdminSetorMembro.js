@@ -33,25 +33,25 @@ export default function SetorMembro() {
         <div className='box' style={{ margin: '10px', width: '250px', height: '200px' }}>
             <center>
                 <h2>Setor Membros</h2>
-                <table>
+                <table className='noBorder'>
                     <tr>
-                        <td style={{ width: '88%' }}><Selecter dados={setores} functionName={(ev) => { handleChangeSetores(ev.target) }} /></td>
+                        <td style={{ width: '95%' }}><Selecter dados={setores} functionName={(ev) => { handleChangeSetores(ev.target) }} /></td>
                     </tr>
                     <tr>
-                        <td style={{ width: '88%' }}><SelecterUser dados={users} functionName={(ev) => { handleChangeUsers(ev.target) }} /></td>
+                        <td style={{ width: '95%' }}><SelecterUser dados={users} functionName={(ev) => { handleChangeUsers(ev.target) }} /></td>
                         <td><a className='btn-delete' href="#" onClick={(ev) => { handleDeleteUser(ev) }}></a></td>
                     </tr>
                     {
                         cadastro.add === false ? null :
                             <tbody>
                                 <tr>
-                                    <td style={{ width: '88%' }}><input className='inputter' onChange={(ev) => { setCadastro({ ...cadastro, nome: ev.target.value }) }} placeholder="Nome" required /></td>
+                                    <td style={{ width: '95%' }}><input className='inputter' onChange={(ev) => { setCadastro({ ...cadastro, nome: ev.target.value }) }} placeholder="Nome" required /></td>
                                 </tr>
                                 <tr>
-                                    <td style={{ width: '88%' }}><input className='inputter' onChange={(ev) => { setCadastro({ ...cadastro, email: ev.target.value }) }} placeholder="Email" required /></td>
+                                    <td style={{ width: '95%' }}><input className='inputter' onChange={(ev) => { setCadastro({ ...cadastro, email: ev.target.value }) }} placeholder="Email" required /></td>
                                 </tr>
                                 <tr>
-                                    <td style={{ width: '88%' }}><button onClick={(ev) => { handleSubmitForm(ev) }} >Cadastrar</button></td>
+                                    <td style={{ width: '95%' }}><button onClick={(ev) => { handleSubmitForm(ev) }} >Cadastrar</button></td>
                                 </tr>
                             </tbody>
                     }

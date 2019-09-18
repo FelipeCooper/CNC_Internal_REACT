@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Selecter from '../components/Selecter';
 import Getter from '../../services/Getter';
+import { async } from 'q';
 
 export default function SetorMembro() {
     const [setores, setSetores] = useState([]);
     const [motivos, setMotivos] = useState([]);
     const [submotivos, setSubmotivos] = useState([]);
+    const [todosMotivos,setTodosMotivos] = useState([])
     const [Controll, setControll] = useState({ newMotivo: false, newSub: false, addMotivo: false, addSub: false })
     useEffect(async () => {
         setSetores(await Getter.setores())
+        setTodosMotivos(await Getter.allMotivos())
     }, [])
     async function handleChangeSetores(ev) {
         let result = await Getter.motivos(ev.value);
@@ -22,32 +25,50 @@ export default function SetorMembro() {
     async function handleChangeSubmotivos(ev) {
         ev.value === 'add' ? setControll({ ...Controll, addSub: true }) : setControll({ ...Controll, submotivo_id: ev.value })
     }
+    async function handleSubmitMotivo(ev) {
+        console.log(Controll)
+    }
+    async function handleChangeNewMotivo(ev){
+        setControll({...Controll, motivo_id: ev.value})
+    }
+    async function handleSubmitNewMotivo(ev){
+        ev.preventDefault();
+        let request = await Getter.linkarMotivo(Controll);
+        request.result ? alert('Motivo registrado com sucesso') : alert('Erro ao registrar motivo');
+    }
     return (
         <div className='box' style={{ margin: '10px', width: '250px', height: '200px' }}>
             <center>
                 <h2>Motivos</h2>
-                <table>
+                <table className='noBorder' cellspacing="0" cellpadding="0">
                     <tr>
-                        <td style={{ width: '88%' }}><Selecter dados={setores} functionName={(ev) => { handleChangeSetores(ev.target) }} /></td>
+                        <td style={{ width: '95%' }}><Selecter dados={setores} functionName={(ev) => { handleChangeSetores(ev.target) }} /></td>
                     </tr>
                     <tr>
-                        <td style={{ width: '88%', margin: '0px', border: '0px' }}><Selecter dados={motivos} functionName={(ev) => { handleChangeMotivos(ev.target) }} add={true} /></td>
-                        <td><a className='btn-add' href="#" ></a></td>
+                        <td  style={{ width: '95%', margin: '0px', border: '0px' }}><Selecter dados={motivos} functionName={(ev) => { handleChangeMotivos(ev.target) }} add={true} /></td>
                         <td><a className='btn-delete' href="#" ></a></td>
                     </tr>
                     {Controll.addMotivo == false ?
                         <tr>
-                            <td style={{ width: '88%' }}><Selecter dados={submotivos} functionName={(ev) => { handleChangeSubmotivos(ev.target) }} add={true} /></td>
-                            <td><a className='btn-add' href="#" ></a></td>
+                            <td style={{ width: '95%' }}><Selecter dados={submotivos} functionName={(ev) => { handleChangeSubmotivos(ev.target) }} add={true} /></td>
                             <td><a className='btn-delete' href="#" ></a></td>
-                        </tr> :<>
+                        </tr> :
                         <tr>
-                            <td style={{ width: '88%' }}><input className='inputter' onChange={(ev) => { setControll({ ...Controll, titulo: ev.target.value }) }} placeholder="Titulo" required /></td>
+                            <td style={{ width: '95%', margin: '0px', border: '0px' }}><Selecter dados={todosMotivos} functionName={(ev) => { handleChangeNewMotivo(ev.target) }} add={true} /></td>
+                            <td><a className='btn-add' href="#" onClick={(ev)=>{handleSubmitNewMotivo(ev)}} ></a></td>
                         </tr>
-                        <tr>
-                            <td style={{ width: '88%' }}><button >Cadastrar</button></td>
-                        </tr></>    
-                     }
+                    }
+                    {Controll.newMotivo === true ?
+                        <>
+                            <tr>
+                                <td style={{ width: '95%' }}><input className='inputter' onChange={(ev) => { setControll({ ...Controll, titulo: ev.target.value }) }} placeholder="Titulo" required /></td>
+                            </tr>
+                            <tr>
+                                <td style={{ width: '95%' }} onChange={(ev) => { handleSubmitMotivo(ev) }}><button >Cadastrar</button></td>
+                            </tr>
+                        </>   : null
+                }
+
                 </table>
             </center>
         </div>

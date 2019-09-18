@@ -37,6 +37,14 @@ const Getter = {
     },
     async deleteSetorMembro(setorMembro){
         return await requester('api/setorMembro/deletar',setorMembro);
+    },
+    async allMotivos(){
+        let request = await fetch(dominio + 'api/motivo/mostrar');
+        return await request.json()
+    },
+    async linkarMotivo(body){
+        console.log(body)
+        return await requester('api/motivo/motivoLinkSetor',body);
     }
 }
 async function requester(link, body) {
