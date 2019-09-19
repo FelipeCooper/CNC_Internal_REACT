@@ -26,14 +26,17 @@ export default function SetorMembro() {
         ev.value === 'add' ? setControll({ ...Controll, addSub: true }) : setControll({ ...Controll, submotivo_id: ev.value })
     }
     async function handleSubmitMotivo(ev) {
-        console.log(Controll)
+        ev.preventDefault();
+        let request = await Getter.cadastrarMotivo(Controll);
+        request.result ? alert('Motivo registrado com sucesso') : alert('Erro ao registrar motivo');
     }
     async function handleChangeNewMotivo(ev){
-        setControll({...Controll, motivo_id: ev.value})
+        ev.value === 'add' ? setControll({ ...Controll, newMotivo: true }) : setControll({ ...Controll, motivo_id: ev.value })
     }
     async function handleSubmitNewMotivo(ev){
         ev.preventDefault();
         let request = await Getter.linkarMotivo(Controll);
+        console.log(request)
         request.result ? alert('Motivo registrado com sucesso') : alert('Erro ao registrar motivo');
     }
     return (
@@ -64,7 +67,7 @@ export default function SetorMembro() {
                                 <td style={{ width: '95%' }}><input className='inputter' onChange={(ev) => { setControll({ ...Controll, titulo: ev.target.value }) }} placeholder="Titulo" required /></td>
                             </tr>
                             <tr>
-                                <td style={{ width: '95%' }} onChange={(ev) => { handleSubmitMotivo(ev) }}><button >Cadastrar</button></td>
+                                <td style={{ width: '95%' }} onClick={(ev) => { handleSubmitMotivo(ev) }}><button >Cadastrar</button></td>
                             </tr>
                         </>   : null
                 }

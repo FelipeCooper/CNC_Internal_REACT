@@ -45,6 +45,9 @@ const Getter = {
     async linkarMotivo(body){
         console.log(body)
         return await requester('api/motivo/motivoLinkSetor',body);
+    },
+    async cadastrarMotivo(body){
+        return await requester('api/motivo/cadastrar',body);
     }
 }
 async function requester(link, body) {
