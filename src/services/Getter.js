@@ -22,9 +22,9 @@ const Getter = {
     async autentication() {
         let email = await fetch('./O365.php');
         let verf = await email.text();
-        let request = await requester('api/setorMembro/verifica', { email: 'estagiario.consultoria1@grupoembracon.com.br' });
+        let request = await requester('api/setorMembro/verifica', { email: "estagiario.co2nsultoria1@grupoembracon.com.br"});
         if (typeof request.resultado != 'undefined') {
-            return await requester('api/admin/verifica', { email: 'estagiario.consultoria1@grupoembracon.com.br' });
+            return await requester('api/admin/verifica', { email: "estagiario.consultoria1@grupoembracon.com.br" });
         } else {
             return request;
         }
@@ -48,6 +48,9 @@ const Getter = {
     },
     async cadastrarMotivo(body){
         return await requester('api/motivo/cadastrar',body);
+    },
+    async unlinkMotivo(body){
+        return await requester('api/motivo/motivoUnlinkSetor',body);
     }
 }
 async function requester(link, body) {

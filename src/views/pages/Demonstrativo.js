@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import CanvasJSReact from '../../plugin/canvas/canvasjs.react';
 import CNC from '../../services/CNC';
+import { Redirect } from 'react-router-dom'
 import Getter from '../../services/Getter';
 import Grafico from "../components/Grafico";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -14,13 +15,16 @@ export default class Graphs extends Component {
     this.render = this.render.bind(this)
     this.setData = this.setData.bind(this);
   }
-  async componentWillMount() {
+  async componentDidMount(){
     let autentication = await Getter.autentication();
     this.setState({ estado: autentication.resultado, setor_id: autentication.setor_id });
-    setInterval(
+
+  }
+  async componentWillMount() {
+        setInterval(
       async function () {
         let data = await CNC(this.state.setor_id, this.state.data_inicio, this.state.data_fim)
-        this.setState({ estado: autentication.resultado, setor_id: autentication.setor_id, dados: await this.setData(data) });
+        this.setState({ dados: await this.setData(data) });
         console.log(this.state.dados)
       }.bind(this), 5000)
   }
@@ -42,10 +46,14 @@ export default class Graphs extends Component {
     return data;
   }
   render() {
-    return (
-      <div>
-        <Grafico titulo='Nao Conformidade Mensal' height='600' dados={this.state.dados} />
-      </div>
-    );
+    if (this.state.estado == 'NaoAutorizado') {
+      return (<Redirect to='acessoNegado' />)
+    } else {
+      return (
+        <div>
+          <Grafico titulo='Nao Conformidade Mensal' height='600' dados={this.state.dados} />
+        </div>
+      );
+    }
   }
 }

@@ -14,7 +14,9 @@ export default class Mostrar extends Component {
     this.setMonth = this.setMonth.bind(this);
   }
   async componentDidMount() {
-    this.setState({user: await Getter.autentication()});
+    let autentication = await Getter.autentication();
+    this.setState({user: autentication });
+    this.setState({ estado:  autentication.resultado });
     this.setState({ dados: await CNC(this.state.user.setor_id, this.state.data_inicio, this.state.data_fim) });
     this.setState({ titulo: 'CADASTROS DO SETOR' });
     console.log(this.state)

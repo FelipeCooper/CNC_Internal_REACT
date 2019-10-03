@@ -39,6 +39,10 @@ export default function SetorMembro() {
         console.log(request)
         request.result ? alert('Motivo registrado com sucesso') : alert('Erro ao registrar motivo');
     }
+    async function handleUnlinkMotivo(ev){
+        let request = await Getter.unlinkMotivo(Controll);
+        request.result ? alert('Motivo removido') :  alert("Problema ao remover");
+    }
     return (
         <div className='box' style={{ margin: '10px', width: '250px', height: '200px' }}>
             <center>
@@ -54,7 +58,7 @@ export default function SetorMembro() {
                     {Controll.addMotivo == false ?
                         <tr>
                             <td style={{ width: '95%' }}><Selecter dados={submotivos} functionName={(ev) => { handleChangeSubmotivos(ev.target) }} add={true} /></td>
-                            <td><a className='btn-delete' href="#" ></a></td>
+                            <td><a className='btn-delete' href="#" onClick={(ev)=>{handleUnlinkMotivo(ev.target)}} ></a></td>
                         </tr> :
                         <tr>
                             <td style={{ width: '95%', margin: '0px', border: '0px' }}><Selecter dados={todosMotivos} functionName={(ev) => { handleChangeNewMotivo(ev.target) }} add={true} /></td>
@@ -67,7 +71,7 @@ export default function SetorMembro() {
                                 <td style={{ width: '95%' }}><input className='inputter' onChange={(ev) => { setControll({ ...Controll, titulo: ev.target.value }) }} placeholder="Titulo" required /></td>
                             </tr>
                             <tr>
-                                <td style={{ width: '95%' }} onClick={(ev) => { handleSubmitMotivo(ev) }}><button >Cadastrar</button></td>
+                                <td style={{ width: '95%' }} ><button onClick={(ev) => { handleSubmitMotivo(ev) }} >Cadastrar</button></td>
                             </tr>
                         </>   : null
                 }
