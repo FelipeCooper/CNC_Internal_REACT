@@ -23,7 +23,7 @@ export default class Graphs extends Component {
   async componentWillMount() {
         setInterval(
       async function () {
-        let data = await CNC(this.state.setor_id, this.state.data_inicio, this.state.data_fim)
+        let data = await CNC.mostrar(this.state.setor_id, this.state.data_inicio, this.state.data_fim)
         this.setState({ dados: await this.setData(data) });
         console.log(this.state.dados)
       }.bind(this), 5000)

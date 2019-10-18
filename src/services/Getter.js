@@ -1,6 +1,4 @@
-import Admin from "../views/pages/Admin";
-
-const dominio = 'http://localhost:3001/';
+import host from './Dev';
 const Getter = {
     async motivos(setorId) {
         return requester('api/motivo/setor', { setor_id: setorId })
@@ -11,20 +9,24 @@ const Getter = {
     },
     //
     async setores() {
-        let request = await fetch(dominio + 'api/setor/mostrar')
+        let request = await fetch(host.dominio + 'api/setor/mostrar')
         return await request.json();
     },
     //
+
     async franquias() {
-        let request = await fetch(dominio + 'api/franquia/mostrar')
+        let request = await fetch(host.dominio + 'api/franquia/mostrar')
         return await request.json();
     },
     async autentication() {
         let email = await fetch('./O365.php');
         let verf = await email.text();
-        let request = await requester('api/setorMembro/verifica', { email: "estagiario.co2nsultoria1@grupoembracon.com.br"});
-        if (typeof request.resultado != 'undefined') {
-            return await requester('api/admin/verifica', { email: "estagiario.consultoria1@grupoembracon.com.br" });
+        if(verf == "desconectado"){
+            window.location = '/O365';
+        }
+        let request = await requester('api/setorMembro/mostrarByEmail', { email: verf});
+        if (request.resultado == 'NaoAutorizado') {
+            return await requester('api/admin/verifica', { email: verf });
         } else {
             return request;
         }
@@ -39,7 +41,7 @@ const Getter = {
         return await requester('api/setorMembro/deletar',setorMembro);
     },
     async allMotivos(){
-        let request = await fetch(dominio + 'api/motivo/mostrar');
+        let request = await fetch(host.dominio + 'api/motivo/mostrar');
         return await request.json()
     },
     async linkarMotivo(body){
@@ -54,7 +56,7 @@ const Getter = {
     }
 }
 async function requester(link, body) {
-    let request = await fetch(dominio + link, {
+    let request = await fetch(host.dominio + link, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

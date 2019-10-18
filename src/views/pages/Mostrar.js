@@ -9,7 +9,10 @@ export default class Mostrar extends Component {
     super(props);
     this.state = {
       dados: [],
-      titulo: ''
+      titulo: '',
+      user:{
+        resultado : null
+      }
     }
     this.setMonth = this.setMonth.bind(this);
   }
@@ -17,7 +20,7 @@ export default class Mostrar extends Component {
     let autentication = await Getter.autentication();
     this.setState({user: autentication });
     this.setState({ estado:  autentication.resultado });
-    this.setState({ dados: await CNC(this.state.user.setor_id, this.state.data_inicio, this.state.data_fim) });
+    this.setState({ dados: await CNC.mostrar(this.state.user.setor_id, this.state.data_inicio, this.state.data_fim) });
     this.setState({ titulo: 'CADASTROS DO SETOR' });
     console.log(this.state)
   }
@@ -25,7 +28,16 @@ export default class Mostrar extends Component {
     let mes = ev.target.value.split('-');
     this.setState({ data_inicio: await new Date(mes[0], mes[1] - 1, 1).toISOString().slice(0, 10).replace(/-/g, '/') });
     this.setState({ data_fim: await new Date(mes[0], mes[1], 0).toISOString().slice(0, 10).replace(/-/g, '/') });
-    this.setState({ dados: await CNC(this.state.user.setor_id, this.state.data_inicio, this.state.data_fim) });
+    this.setState({ dados: await CNC.mostrar(this.state.user.setor_id, this.state.data_inicio, this.state.data_fim) });
+  }
+  async deleteNC(id){
+    let request = await CNC.deleteNC(id);
+    if(request.resultado){
+      window.location.reload();
+      return(alert("Deletado com sucesso"));
+    }else{
+      return(alert("Houve um problema, tente novamente"));
+    }
   }
   render() {
     if (this.state.estado == 'NaoAutorizado') {
@@ -47,6 +59,7 @@ export default class Mostrar extends Component {
                     <th style={{ width: '65px' }}>Condominio</th>
                     <th style={{ width: '65px' }}>Responsavel</th>
                     <th style={{ width: '300px' }}>Observaçoes</th>
+                    {this.state.user.resultado  == "Admin" ? <th style={{ width: '65px' }}>Deletar NC</th> : null }
                   </tr>
                 </thead>
               </table>
@@ -65,6 +78,7 @@ export default class Mostrar extends Component {
                         <td style={{ width: '65px' }} > {dado.condominio}  </td>
                         <td style={{ width: '65px' }} > {dado.responsavel}  </td>
                         <td style={{ width: '300px' }} > {dado.observacoes}  </td>
+                        {this.state.user.resultado == "Admin" ? <th style={{ width: '65px' }}><button  onClick={()=> this.deleteNC(dado.id)}>Deletar</button></th> : null }
                       </tr>
                     )
                   })}

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Selecter from '../components/Selecter';
 import Getter from '../../services/Getter';
-import { async } from 'q';
 
 export default function SetorMembro() {
     const [setores, setSetores] = useState([]);
